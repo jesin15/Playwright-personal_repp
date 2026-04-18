@@ -1,0 +1,33 @@
+
+# Dependencies
+node_modules/
+.pnp/
+.pnp.js
+
+# Testing Reports & Results
+/test-results/
+/playwright-report/
+/blob-report/
+/playwright/.cache/
+/reports/
+/allure-results/
+/allure-report/
+cucumber-report.json
+cucumber-report.html
+
+# Environment / Secrets (CRITICAL)
+.env
+.env.local
+.env.*.local
+
+# IDEs & System Files
+.vscode/
+.idea/
+.DS_Store
+Thumbs.db
+*.swp
+
+# Logs
+logs
+*.log
+npm-debug.log*
