@@ -1,4 +1,5 @@
 const { expect } = require("@playwright/test");
+const { hasSubscribers } = require("node:diagnostics_channel");
 const { link } = require("node:fs");
 const { setMaxIdleHTTPParsers } = require("node:http");
 
@@ -96,6 +97,14 @@ async confirmText(expectedText){
     
     // toBeVisible() includes a built-in retry/wait mechanism (default 5s)
     await expect(textLocator).toBeVisible({ timeout: 10000 });
+}
+async selectRoomByType(roomType){
+    const roomRow= this.page.locator('[data-testid="roomlisting"]').filter({hasText:roomType});
+    await roomRow.click()
+}
+async verifyTextNotPresent(expectedText){
+  const textLocator = this.page.getByText(expectedText);
+    await expect(textLocator).toHaveCount(0);
 }
     
 

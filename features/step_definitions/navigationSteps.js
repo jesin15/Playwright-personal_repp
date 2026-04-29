@@ -66,6 +66,7 @@ Then(`User clicks on the {string} Button`,async function  (buttonText) {
 });
 
 Then(`User Books a Room for the {string}`,async function (roomType) {
+    this.roomType=roomType;
     await this.homePage.bookForTheGivenRoom(roomType)
     // [Then] Describes the expected outcome or result of the scenario.
 });
@@ -87,4 +88,22 @@ Then(`User Fills the Booking Form with the Fake credentials.`, async function ()
 Then(`User Verifes The {string} message is displayed.`, async function (messageText){
    await this.homePage.confirmText(messageText);
 });
+Then('User Logins in as Admin using API', async function () {
+    await this.page.goto('https://automationintesting.online/admin/rooms');
+    await this.page.waitForSelector('text=Logout', { state: 'visible', timeout: 5000 });
+})
+Then('User clicks on the room that was booked previously', async function(){
+    await this.homePage.selectRoomByType(this.roomType);
+});
+Then(`The admin dashboard should display the guest's reservation details`, async function(){
+    await this.homePage.confirmText(this.firstName);
+})
+Then(`The admin deletes the guest's reservation details through API`,async function () {
+    await this.apiUtils.deleteBooking(this.roomType,this.firstName,this.adminToken)
+})
+Then (`The admin dashboard should not display the guest's reservation details`,{ timeout: 10000 },async function () {
+    await this.page.reload({ waitUntil: 'networkidle' });
+    await this.homePage.verifyTextNotPresent(this.firstName);
+    
+})
 
