@@ -27,11 +27,11 @@ jobs:
         ADMIN_USERNAME: ${{ secrets.ADMIN_USERNAME }}
         ADMIN_PASSWORD: ${{ secrets.ADMIN_PASSWORD }}
         BASE_URL: ${{ vars.BASE_URL }}
-      run: npx cucumber-js # Or your specific test command
+      run: npx cucumber-js --format html:reports/cucumber-report.html # Or your specific test command
 
     - uses: actions/upload-artifact@v4
       if: always()
       with:
         name: playwright-report
-        path: playwright-report/
+        path: reports/
         retention-days: 30
