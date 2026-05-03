@@ -29,8 +29,8 @@ After(async function(){
     await this.context.close();
    
 });
-BeforeAll(async function () {
-    browser= await chromium.launch({headless: isCI ? true : false});
+BeforeAll({ timeout: 60000 },async function () {
+    browser= await chromium.launch({headless: isCI ? true : false,args: ['--no-sandbox', '--disable-setuid-sandbox']});
     globalApiContext= await request.newContext()
     const apiUtils= new APIUtils(globalApiContext);
     const payLoad={
