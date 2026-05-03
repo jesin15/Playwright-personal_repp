@@ -4,6 +4,7 @@ const {APIUtils}=require('../../utils/APIUtils.js');
 const {HomePage}=require('../../pageObjects/homePage.js');
 const { finalization } = require('node:process');
 require('dotenv').config();
+const isCI = process.env.CI === 'true';
 
 let token;
 let globalApiContext;
@@ -29,7 +30,7 @@ After(async function(){
    
 });
 BeforeAll(async function () {
-    browser= await chromium.launch({headless:false});
+    browser= await chromium.launch({headless: isCI ? true : false});
     globalApiContext= await request.newContext()
     const apiUtils= new APIUtils(globalApiContext);
     const payLoad={
