@@ -85,7 +85,7 @@ test('User visits the site and check the availability of the room that has both 
 
     
 });
-test.only('Verify the message count ', async function ({page}) {
+test('Verify the message count ', async function ({page}) {
     const intialMessageCount=await apiUtils.getMessageCount();
     console.log(intialMessageCount);
     const Name=faker.person.fullName();
