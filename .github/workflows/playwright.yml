@@ -23,7 +23,7 @@ jobs:
       run: npx playwright install --with-deps
 
     - name: Run Playwright tests
-    env:
+      env:
         ADMIN_USERNAME: ${{ secrets.ADMIN_USERNAME }}
         ADMIN_PASSWORD: ${{ secrets.ADMIN_PASSWORD }}
         BASE_URL: ${{ vars.BASE_URL }}
