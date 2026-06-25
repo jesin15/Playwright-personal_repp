@@ -106,4 +106,19 @@ Then (`The admin dashboard should not display the guest's reservation details`,{
     await this.homePage.verifyTextNotPresent(this.firstName);
     
 })
+Then (`User verifies whether we get the status {int} code via API`,async function (expectedStatus) {
+        const response=await this.apiUtils.websiteHealthCheckup();
+        const actualStatus = response.status();
+expect(actualStatus, `Expected API status ${expectedStatus} but got ${actualStatus}`).toBe(expectedStatus);
+}
+)
+Then(`User Deletes the Message which was created via API`, async function(){
+    await this.apiUtils.deleteMessage(this.name,this.adminToken);
+
+})
+Then(`User Verifes the Message Count should be equal to  intial count.`,async function(){
+    const messageCountAfterDelete = await this.apiUtils.getMessageCount();
+    console.log(messageCountAfterDelete);
+    expect(messageCountAfterDelete).toBe(this.intialCount);
+})
 

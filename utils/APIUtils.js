@@ -47,5 +47,28 @@ if (!userBooking) {
 
 
     }
+    async websiteHealthCheckup(){
+        const response =await this.apiContext.get('https://automationintesting.online/');
+        return response;
+
+    }
+    async deleteMessage(targetName,token){
+        const response=await this.apiContext.get('https://automationintesting.online/api/message');
+        const responseBody = await response.json();
+        const matchedMessage = responseBody.messages.find(msg => msg.name.trim()==targetName);
+        const id =matchedMessage.id;
+        const deleteResponse=await this.apiContext.delete(`https://automationintesting.online/api/message//${id}`,{
+        headers: {
+            'Cookie':`token=${token}`
+        }
+       
+    });
+    return deleteResponse.status();
+
+
+
+
+
+    }
 }
 module.exports = { APIUtils };  
