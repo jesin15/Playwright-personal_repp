@@ -16,7 +16,11 @@ jobs:
         with:
           node-version: 22
       - name: Install Dependencies
-        run: npm install && npm playwright install --with --deps
+        run: npm install 
+
+      - name: Install Playwright Browsers
+        run: npm playwright install --with-deps
+
       - name: Run Smoke Suite
         env:
           ADMIN_USERNAME: ${{ secrets.ADMIN_USERNAME }}
